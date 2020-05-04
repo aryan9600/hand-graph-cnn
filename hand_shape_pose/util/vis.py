@@ -131,7 +131,7 @@ def draw_3d_skeleton(pose_cam_xyz, image_size):
                     pose_cam_xyz[[joint_ind - 1, joint_ind], 2], color=color_hand_joints[joint_ind],
                     linewidth=line_wd)
 
-    ax.axis('equal')
+    # ax.axis('equal')
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
@@ -176,6 +176,7 @@ def save_batch_image_with_mesh_joints(mesh_renderer, batch_images, cam_params, b
         rend_img_overlay, rend_img_vp1, rend_img_vp2 = draw_mesh(mesh_renderer, image, cam_param, box, mesh_xyz)
         skeleton_overlay = draw_2d_skeleton(image, pose_uv)
         skeleton_3d = draw_3d_skeleton(pose_xyz, image.shape[:2])
+        print(f"{id_image}: {pose_xyz}")
 
         img_list = [image, rend_img_overlay, rend_img_vp1, rend_img_vp2, skeleton_overlay, skeleton_3d]
 
