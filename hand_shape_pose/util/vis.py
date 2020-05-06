@@ -118,6 +118,38 @@ def draw_3d_skeleton(pose_cam_xyz, image_size):
     marker_sz = 15
     line_wd = 2
 
+    k3d = pose_cam_xyz
+    
+    num_1 = k3d[0][0]*k3d[1][0] + k3d[0][1]*k3d[1][1] + k3d[0][2]*k3d[1][2]
+    den_1 = ((k3d[0][0]**2 + k3d[0][1]**2 + k3d[0][2]**2) * (k3d[1][0]**2 + k3d[1][1]**2 + k3d[1][2]**2))**0.5
+
+
+    num_2 = k3d[0][0]*k3d[5][0] + k3d[0][1]*k3d[5][1] + k3d[0][2]*k3d[5][2]
+    den_2 = ((k3d[0][0]**2 + k3d[0][1]**2 + k3d[0][2]**2) * (k3d[5][0]**2 + k3d[5][1]**2 + k3d[5][2]**2))**0.5
+
+
+    num_3 = k3d[0][0]*k3d[9][0] + k3d[0][1]*k3d[9][1] + k3d[0][2]*k3d[9][2]
+    den_3 = ((k3d[0][0]**2 + k3d[0][1]**2 + k3d[0][2]**2) * (k3d[9][0]**2 + k3d[9][1]**2 + k3d[9][2]**2))**0.5
+
+
+    num_4 = k3d[0][0]*k3d[13][0] + k3d[0][1]*k3d[13][1] + k3d[0][2]*k3d[13][2]
+    den_4 = ((k3d[0][0]**2 + k3d[0][1]**2 + k3d[0][2]**2) * (k3d[13][0]**2 + k3d[13][1]**2 + k3d[13][2]**2))**0.5
+
+
+    num_5 = k3d[0][0]*k3d[17][0] + k3d[0][1]*k3d[17][1] + k3d[0][2]*k3d[17][2]
+    den_5 = ((k3d[0][0]**2 + k3d[0][1]**2 + k3d[0][2]**2) * (k3d[17][0]**2 + k3d[17][1]**2 + k3d[17][2]**2))**0.5
+
+    theta_1 = np.arccos(np.array([num_1])/np.array([den_1]))
+    theta_2 = np.arccos(np.array([num_2])/np.array([den_2]))
+    theta_3 = np.arccos(np.array([num_3])/np.array([den_3]))
+    theta_4 = np.arccos(np.array([num_4])/np.array([den_4]))
+    theta_5 = np.arccos(np.array([num_5])/np.array([den_5]))
+
+    thetas = [theta_1, theta_2, theta_3, theta_4, theta_5]
+
+    for i, theta in enumerate(thetas): 
+        print(f"theta_{i} = {theta}")
+
     for joint_ind in range(pose_cam_xyz.shape[0]):
         ax.plot(pose_cam_xyz[joint_ind:joint_ind + 1, 0], pose_cam_xyz[joint_ind:joint_ind + 1, 1],
                 pose_cam_xyz[joint_ind:joint_ind + 1, 2], '.', c=color_hand_joints[joint_ind], markersize=marker_sz)
